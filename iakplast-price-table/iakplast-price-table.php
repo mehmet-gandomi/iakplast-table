@@ -81,20 +81,11 @@ function iakp_activate() {
 /* ════════════════════════════════════════════════════
    §2  HOMEPAGE CHOICE SCREEN
 ════════════════════════════════════════════════════ */
-add_action( 'init',              'iakp_handle_skip_cookie' );
 add_action( 'template_redirect', 'iakp_maybe_show_choice' );
-
-function iakp_handle_skip_cookie() {
-    if ( isset( $_GET['skip_choice'] ) ) {
-        setcookie( 'iakp_choice', 'site', time() + 86400, COOKIEPATH, COOKIE_DOMAIN );
-    }
-}
 
 function iakp_maybe_show_choice() {
     if ( is_admin() || wp_doing_ajax() ) return;
     if ( ! is_front_page() && ! is_home() ) return;
-    if ( ! empty( $_COOKIE['iakp_choice'] ) ) return;
-
     iakp_render_choice_page();
     exit;
 }
@@ -719,9 +710,8 @@ function iakp_admin_header( $active, $price_url ) {
     ?>
 <div class="iakp-admin-header">
   <div class="iakp-admin-brand">
-    <div class="iakp-admin-logo">IAK</div>
     <div>
-      <div class="iakp-admin-title">آیاک پلاست</div>
+      <div class="iakp-admin-title">IAK Plast</div>
       <div class="iakp-admin-sub">مدیریت قیمت‌نامه محصولات</div>
     </div>
   </div>
@@ -744,35 +734,35 @@ function iakp_admin_header( $active, $price_url ) {
 ════════════════════════════════════════════════════ */
 function iakp_render_choice_page() {
     $price_url = get_permalink( (int) get_option('iakp_page_id') );
-    $site_url  = home_url('/') . '?skip_choice=1';
+    $site_url  = home_url('/');
+    $font_url  = IAKP_PLUGIN_URL . 'assets/RaviVF.ttf';
     ?>
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>آیاک پلاست – خوش آمدید</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+<title>IAK Plast – Welcome</title>
 <style>
+@font-face{
+  font-family:'Ravi';
+  src:url('<?= esc_url($font_url) ?>') format('truetype');
+  font-weight:100 900;font-style:normal;font-display:swap;
+}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --navy:#0B1F3A;--accent:#E8A020;--muted:rgba(255,255,255,.5);
 }
-html,body{height:100%;font-family:'Vazirmatn',sans-serif;direction:rtl}
+html,body{height:100%;font-family:'Ravi',sans-serif;direction:ltr}
 body{
   display:flex;align-items:center;justify-content:center;min-height:100vh;
   background:linear-gradient(135deg,#060f1e 0%,#0b1f3a 50%,#0d2545 100%);
   position:relative;overflow:hidden;
 }
-/* background pattern */
 body::before{
   content:'';position:fixed;inset:0;opacity:.04;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='1.5' fill='white'/%3E%3C/svg%3E");
 }
-
-/* animated orbs */
 .orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
 .orb-1{width:500px;height:500px;background:rgba(26,60,110,.35);top:-100px;right:-100px}
 .orb-2{width:400px;height:400px;background:rgba(232,160,32,.08);bottom:-80px;left:-80px}
@@ -788,16 +778,7 @@ body::before{
   box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07);
   text-align:center;
 }
-
-.logo-hex{
-  width:72px;height:72px;margin:0 auto 12px;
-  background:linear-gradient(135deg,var(--accent),#c8780a);
-  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-  display:flex;align-items:center;justify-content:center;
-  font-size:20px;font-weight:900;color:#fff;
-  box-shadow:0 8px 32px rgba(232,160,32,.45);
-}
-.logo-name{font-size:21px;font-weight:700;color:#fff;margin-top:2px}
+.logo-name{font-size:32px;font-weight:800;color:#fff;letter-spacing:1px}
 .logo-en{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:4px}
 
 .card-title{font-size:17px;font-weight:600;color:rgba(255,255,255,.9);margin:28px 0 6px}
@@ -810,7 +791,7 @@ body::before{
   border:1.5px solid rgba(255,255,255,.1);
   background:rgba(255,255,255,.04);
   color:#fff;text-decoration:none;
-  transition:all .22s ease;text-align:right;
+  transition:all .22s ease;text-align:left;
 }
 .choice-btn:hover{
   background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);
@@ -826,51 +807,42 @@ body::before{
   background:rgba(255,255,255,.12);
   display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
 }
+.btn-text{flex:1;text-align:left}
 .btn-title{font-size:14px;font-weight:600;display:block}
 .btn-desc{font-size:12px;opacity:.65;margin-top:2px;display:block}
 
 .sep{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.2);font-size:12px;margin:4px 0}
 .sep::before,.sep::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
-
-.foot{margin-top:28px;font-size:12px;color:rgba(255,255,255,.3)}
 </style>
 </head>
 <body>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
 <div class="card">
-  <div class="logo-hex">IAK</div>
-  <div class="logo-name">آیاک پلاست</div>
-  <div class="logo-en">IAKPlast Co.</div>
+  <div class="logo-name">IAK Plast</div>
+  <div class="logo-en">Official Price List</div>
 
-  <p class="card-title">به کجا می‌خواهید بروید؟</p>
-  <p class="card-sub">یکی از گزینه‌های زیر را انتخاب کنید</p>
+  <p class="card-title">Where would you like to go?</p>
+  <p class="card-sub">Please choose one of the options below</p>
 
   <div class="choices">
-    <a href="<?= esc_url($price_url) ?>" class="choice-btn cta" onclick="setChoice('price')">
+    <a href="<?= esc_url($price_url) ?>" class="choice-btn cta">
       <div class="btn-icon">📋</div>
-      <div>
-        <span class="btn-title">لیست قیمت محصولات</span>
-        <span class="btn-desc">قیمت‌نامه به‌روز تمام محصولات</span>
+      <div class="btn-text">
+        <span class="btn-title">Product Price List</span>
+        <span class="btn-desc">View up-to-date prices for all products</span>
       </div>
     </a>
-    <div class="sep">یا</div>
-    <a href="<?= esc_url($site_url) ?>" class="choice-btn" onclick="setChoice('site')">
+    <div class="sep">or</div>
+    <a href="<?= esc_url($site_url) ?>" class="choice-btn">
       <div class="btn-icon">🌐</div>
-      <div>
-        <span class="btn-title">ورود به وب‌سایت اصلی</span>
-        <span class="btn-desc">درباره ما، محصولات و تماس</span>
+      <div class="btn-text">
+        <span class="btn-title">Back to Kidioki</span>
+        <span class="btn-desc">Visit the main website</span>
       </div>
     </a>
   </div>
-  <p class="foot">انتخاب شما برای ۲۴ ساعت ذخیره می‌شود</p>
 </div>
-<script>
-function setChoice(v){
-  var e=new Date();e.setTime(e.getTime()+86400000);
-  document.cookie='iakp_choice='+v+';expires='+e.toUTCString()+';path=/';
-}
-</script>
 </body>
 </html>
     <?php

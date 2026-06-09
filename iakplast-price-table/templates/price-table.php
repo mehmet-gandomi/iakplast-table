@@ -9,18 +9,21 @@ $site_url  = home_url('/');
 $phone     = get_option('iakp_phone',   '+98 21 XXXX XXXX');
 $tagline   = get_option('iakp_tagline', 'تولیدکننده لوله و اتصالات پلی‌اتیلن');
 $foot_note = get_option('iakp_note',    'قیمت‌ها به ریال بوده و ممکن است بدون اطلاع قبلی تغییر کنند.');
+$font_url  = IAKP_PLUGIN_URL . 'assets/RaviVF.ttf';
 ?>
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>لیست قیمت محصولات – آیاک پلاست</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>لیست قیمت محصولات – IAK Plast</title>
 <?php wp_head(); // keeps WP hooks happy without outputting theme styles ?>
 <style>
+@font-face{
+  font-family:'Ravi';
+  src:url('<?= esc_url($font_url) ?>') format('truetype');
+  font-weight:100 900;font-style:normal;font-display:swap;
+}
 /* ── Reset & Base ──────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -40,7 +43,7 @@ $foot_note = get_option('iakp_note',    'قیمت‌ها به ریال بوده 
   --radius:    12px;
   --trans:     .22s ease;
 }
-html,body{min-height:100%;font-family:'Vazirmatn',Tahoma,sans-serif;color:var(--text);background:var(--light)}
+html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text);background:var(--light)}
 
 /* ── Header band ───────────────────────────────── */
 .iak-header{
@@ -58,15 +61,7 @@ html,body{min-height:100%;font-family:'Vazirmatn',Tahoma,sans-serif;color:var(--
   display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
 }
 .brand{display:flex;align-items:center;gap:16px}
-.brand-hex{
-  width:56px;height:56px;
-  background:linear-gradient(135deg,var(--accent),var(--accent2));
-  clip-path:polygon(50% 0%,100% 25%,100% 75%,50% 100%,0% 75%,0% 25%);
-  display:flex;align-items:center;justify-content:center;
-  font-size:16px;font-weight:900;color:#fff;letter-spacing:-1px;
-  box-shadow:0 6px 24px rgba(232,160,32,.45);flex-shrink:0;
-}
-.brand-name{font-size:20px;font-weight:700;line-height:1.2}
+.brand-name{font-size:24px;font-weight:800;line-height:1.2;letter-spacing:.5px}
 .brand-tagline{font-size:12px;color:rgba(255,255,255,.55);margin-top:3px;letter-spacing:1px}
 .header-nav a{
   display:inline-flex;align-items:center;gap:6px;
@@ -200,14 +195,13 @@ html,body{min-height:100%;font-family:'Vazirmatn',Tahoma,sans-serif;color:var(--
 <header class="iak-header">
   <div class="header-inner">
     <div class="brand">
-      <div class="brand-hex">IAK</div>
       <div>
-        <div class="brand-name">آیاک پلاست</div>
+        <div class="brand-name">IAK Plast</div>
         <div class="brand-tagline"><?= esc_html($tagline) ?></div>
       </div>
     </div>
     <nav class="header-nav">
-      <a href="<?= esc_url($site_url) ?>">🌐 بازگشت به وب‌سایت</a>
+      <a href="<?= esc_url($site_url) ?>">🌐 بازگشت به Kidioki</a>
     </nav>
   </div>
 
@@ -275,8 +269,8 @@ html,body{min-height:100%;font-family:'Vazirmatn',Tahoma,sans-serif;color:var(--
 
 <!-- ══ FOOTER ══════════════════════════════════ -->
 <footer class="iak-footer">
-  <p>© <?= date('Y') ?> شرکت آیاک پلاست — تمامی حقوق محفوظ است</p>
-  <p><?= esc_html($foot_note) ?> | <a href="<?= esc_url($site_url) ?>">بازگشت به وب‌سایت اصلی</a></p>
+  <p>© <?= date('Y') ?> IAK Plast — تمامی حقوق محفوظ است</p>
+  <p><?= esc_html($foot_note) ?> | <a href="<?= esc_url($site_url) ?>">بازگشت به Kidioki</a></p>
 </footer>
 
 <script>
