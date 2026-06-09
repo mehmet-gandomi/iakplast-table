@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: IAKPlast Price Table
+ * Plugin Name: IAK Plast Price Table
  * Plugin URI:  https://iakplast.com
- * Description: جدول قیمت محصولات آیاک پلاست – مدیریت محصولات، دسته‌بندی‌ها و صفحه انتخاب ورودی
+ * Description: جدول قیمت مواد اولیه IAK Plast – مدیریت محصولات، دسته‌بندی‌ها و صفحه انتخاب ورودی
  * Version:     1.0.0
  * Author:      IAKPlast
  * Text Domain: iakplast
@@ -86,6 +86,8 @@ add_action( 'template_redirect', 'iakp_maybe_show_choice' );
 function iakp_maybe_show_choice() {
     if ( is_admin() || wp_doing_ajax() ) return;
     if ( ! is_front_page() && ! is_home() ) return;
+    // ?skip_choice=1 lets the Kidioki button reach the real homepage
+    if ( isset( $_GET['skip_choice'] ) ) return;
     iakp_render_choice_page();
     exit;
 }
@@ -734,7 +736,7 @@ function iakp_admin_header( $active, $price_url ) {
 ════════════════════════════════════════════════════ */
 function iakp_render_choice_page() {
     $price_url = get_permalink( (int) get_option('iakp_page_id') );
-    $site_url  = home_url('/');
+    $site_url  = home_url('/?skip_choice=1');
     $font_url  = IAKP_PLUGIN_URL . 'assets/RaviVF.ttf';
     ?>
 <!DOCTYPE html>
