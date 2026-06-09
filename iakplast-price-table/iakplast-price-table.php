@@ -110,8 +110,8 @@ add_action( 'admin_menu', 'iakp_admin_menu' );
 
 function iakp_admin_menu() {
     add_menu_page(
-        'آیاک پلاست',
-        'آیاک پلاست',
+        'IAK Plast',
+        'IAK Plast',
         'manage_options',
         'iakplast',
         'iakp_page_products',
