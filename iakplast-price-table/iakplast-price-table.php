@@ -81,12 +81,22 @@ function iakp_activate() {
 /* ════════════════════════════════════════════════════
    §2  HOMEPAGE CHOICE SCREEN
 ════════════════════════════════════════════════════ */
+add_action( 'init',              'iakp_handle_skip' );
 add_action( 'template_redirect', 'iakp_maybe_show_choice' );
+
+function iakp_handle_skip() {
+    if ( isset( $_GET['skip_choice'] ) ) {
+        setcookie( 'iakp_choice', 'site', 0, COOKIEPATH, COOKIE_DOMAIN );
+    }
+}
 
 function iakp_maybe_show_choice() {
     if ( is_admin() || wp_doing_ajax() ) return;
-    if ( ! is_front_page() && ! is_home() ) return;
-    // ?skip_choice=1 lets the Kidioki button reach the real homepage
+    // Only intercept the static front page, never blog/archive/other pages
+    if ( ! is_front_page() ) return;
+    // Session cookie set when user clicked a button — let them browse freely
+    if ( ! empty( $_COOKIE['iakp_choice'] ) ) return;
+    // ?skip_choice=1 also bypasses (used by direct links)
     if ( isset( $_GET['skip_choice'] ) ) return;
     iakp_render_choice_page();
     exit;
@@ -881,7 +891,7 @@ body{
 
   <div class="choices">
 
-    <a href="<?= esc_url($price_url) ?>" class="choice-btn cta">
+    <a href="<?= esc_url($price_url) ?>" class="choice-btn cta" onclick="setChoice()">
       <div class="btn-icon">📋</div>
       <div class="btn-text">
         <span class="btn-title">لیست قیمت مواد اولیه</span>
@@ -891,7 +901,7 @@ body{
 
     <div class="sep">یا</div>
 
-    <a href="<?= esc_url($site_url) ?>" class="choice-btn">
+    <a href="<?= esc_url($site_url) ?>" class="choice-btn" onclick="setChoice()">
       <div class="btn-icon">🧸</div>
       <div class="btn-text">
         <span class="btn-title">Kidioki</span>
@@ -901,6 +911,12 @@ body{
 
   </div>
 </div>
+<script>
+/* session cookie – no expiry = cleared when browser closes */
+function setChoice(){
+  document.cookie='iakp_choice=1;path=/';
+}
+</script>
 </body>
 </html>
     <?php
