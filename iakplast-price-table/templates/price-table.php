@@ -17,152 +17,149 @@ $font_url  = IAKP_PLUGIN_URL . 'assets/RaviVF.ttf';
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>لیست قیمت محصولات – IAK Plast</title>
-<?php wp_head(); // keeps WP hooks happy without outputting theme styles ?>
+<?php wp_head(); ?>
 <style>
 @font-face{
   font-family:'Ravi';
   src:url('<?= esc_url($font_url) ?>') format('truetype');
   font-weight:100 900;font-style:normal;font-display:swap;
 }
-/* ── Reset & Base ──────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --navy:      #0B1F3A;
   --navy2:     #112848;
-  --blue:      #1A3C6E;
   --accent:    #E8A020;
   --accent2:   #C8780A;
-  --green:     #27AE60;
   --light:     #F5F7FA;
   --white:     #FFFFFF;
   --text:      #1E2D40;
   --muted:     #6B7C93;
   --border:    #E2E8F0;
-  --shadow-sm: 0 2px 8px rgba(0,0,0,.07);
-  --shadow-md: 0 8px 32px rgba(0,0,0,.1);
   --radius:    12px;
-  --trans:     .22s ease;
+  --trans:     .2s ease;
+  --shadow:    0 2px 8px rgba(0,0,0,.07);
 }
 html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text);background:var(--light)}
 
-/* ── Header band ───────────────────────────────── */
+/* ══ HEADER ══════════════════════════════════════ */
 .iak-header{
   background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 60%,#0d2d52 100%);
-  color:#fff;padding:0;
-  position:relative;overflow:hidden;
+  color:#fff;position:relative;overflow:hidden;
 }
 .iak-header::before{
   content:'';position:absolute;inset:0;
-  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23fff' fill-opacity='.02'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E");
 }
 .header-inner{
   position:relative;z-index:1;
-  max-width:1200px;margin:0 auto;padding:32px 24px 0;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px;
+  max-width:1200px;margin:0 auto;
+  padding:24px 20px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
 }
-.brand{display:flex;align-items:center;gap:16px}
-.brand-name{font-size:24px;font-weight:800;line-height:1.2;letter-spacing:.5px}
-.brand-tagline{font-size:12px;color:rgba(255,255,255,.55);margin-top:3px;letter-spacing:1px}
+.brand-name{font-size:22px;font-weight:800;letter-spacing:.5px}
+.brand-tagline{font-size:12px;color:rgba(255,255,255,.5);margin-top:3px}
 .header-nav a{
   display:inline-flex;align-items:center;gap:6px;
-  padding:10px 20px;border-radius:8px;font-size:13px;font-weight:600;
+  padding:9px 18px;border-radius:8px;font-size:13px;font-weight:600;
   border:1.5px solid rgba(255,255,255,.2);color:rgba(255,255,255,.85);
-  text-decoration:none;transition:var(--trans);
+  text-decoration:none;transition:var(--trans);white-space:nowrap;
 }
 .header-nav a:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.4);color:#fff}
 
-/* hero strip */
 .hero-strip{
-  max-width:1200px;margin:28px auto 0;padding:0 24px 36px;
   position:relative;z-index:1;
+  max-width:1200px;margin:20px auto 0;padding:0 20px 28px;
 }
-.hero-strip h1{font-size:clamp(20px,3vw,28px);font-weight:700;color:#fff;margin-bottom:8px}
-.hero-strip p{font-size:14px;color:rgba(255,255,255,.6);max-width:520px;line-height:1.8}
-.hero-meta{display:flex;gap:24px;margin-top:20px;flex-wrap:wrap}
+.hero-strip h1{font-size:clamp(18px,2.5vw,26px);font-weight:700;color:#fff;margin-bottom:6px}
+.hero-strip p{font-size:13px;color:rgba(255,255,255,.6);max-width:520px;line-height:1.8}
+.hero-meta{display:flex;gap:12px;margin-top:16px;flex-wrap:wrap}
 .meta-chip{
-  display:flex;align-items:center;gap:8px;
+  display:flex;align-items:center;gap:7px;
   background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
-  border-radius:100px;padding:6px 14px;font-size:12px;color:rgba(255,255,255,.75);
+  border-radius:100px;padding:5px 13px;font-size:12px;color:rgba(255,255,255,.75);
 }
 .meta-chip strong{color:var(--accent)}
 
-/* ── Main body ─────────────────────────────────── */
-.iak-body{max-width:1200px;margin:0 auto;padding:32px 24px 60px}
+/* ══ BODY ════════════════════════════════════════ */
+.iak-body{max-width:1200px;margin:0 auto;padding:24px 16px 60px}
 
-/* ── Filter bar ────────────────────────────────── */
+/* ══ FILTER BAR ══════════════════════════════════ */
 .filter-bar{
   background:var(--white);border-radius:var(--radius);
-  padding:20px 24px;
-  box-shadow:var(--shadow-sm);
-  border:1px solid var(--border);
-  display:flex;align-items:center;flex-wrap:wrap;gap:12px;
-  margin-bottom:24px;
+  padding:16px 20px;border:1px solid var(--border);
+  box-shadow:var(--shadow);margin-bottom:20px;
+  display:flex;align-items:center;flex-wrap:wrap;gap:10px;
 }
-.filter-bar label{font-size:13px;font-weight:600;color:var(--muted);flex-shrink:0}
-.filter-cats{display:flex;flex-wrap:wrap;gap:8px;flex:1}
+.filter-label{font-size:13px;font-weight:600;color:var(--muted);flex-shrink:0;white-space:nowrap}
+.filter-cats{display:flex;flex-wrap:wrap;gap:7px;flex:1;min-width:0}
 .cat-pill{
-  padding:7px 16px;border-radius:100px;font-size:13px;font-weight:500;
+  padding:6px 14px;border-radius:100px;font-size:13px;font-weight:500;
   border:1.5px solid var(--border);background:transparent;color:var(--muted);
-  cursor:pointer;transition:var(--trans);font-family:inherit;
+  cursor:pointer;transition:var(--trans);font-family:inherit;white-space:nowrap;
 }
 .cat-pill:hover{border-color:var(--accent);color:var(--accent2)}
 .cat-pill.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
-
-.search-wrap{position:relative;width:240px;flex-shrink:0}
+.search-wrap{position:relative;width:220px;flex-shrink:0}
 .search-wrap input{
-  width:100%;padding:9px 36px 9px 14px;border:1.5px solid var(--border);
-  border-radius:100px;font-size:13px;font-family:inherit;
+  width:100%;padding:8px 36px 8px 12px;
+  border:1.5px solid var(--border);border-radius:100px;
+  font-size:13px;font-family:inherit;
   color:var(--text);transition:var(--trans);direction:rtl;background:#fff;
 }
 .search-wrap input:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(232,160,32,.12)}
 .search-wrap::after{
-  content:'🔍';position:absolute;left:12px;top:50%;transform:translateY(-50%);
-  font-size:14px;pointer-events:none;
+  content:'🔍';position:absolute;left:11px;top:50%;transform:translateY(-50%);
+  font-size:13px;pointer-events:none;
 }
 
-/* ── Table card ────────────────────────────────── */
+/* ══ TABLE CARD ══════════════════════════════════ */
 .table-card{
   background:var(--white);border-radius:var(--radius);
-  box-shadow:var(--shadow-sm);border:1px solid var(--border);
-  overflow:hidden;
+  border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden;
 }
-.table-header{
+.table-card-head{
   display:flex;justify-content:space-between;align-items:center;
-  padding:16px 24px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;
+  padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:8px;
 }
-.table-header h2{font-size:15px;font-weight:700;color:var(--navy)}
-.table-header span{font-size:13px;color:var(--muted)}
+.table-card-head h2{font-size:15px;font-weight:700;color:var(--navy);margin:0}
+#iak-count{font-size:13px;color:var(--muted)}
 #iak-count strong{color:var(--accent)}
 
+/* ── Desktop table ──────────────────────────────── */
 .iak-table{width:100%;border-collapse:collapse}
 .iak-table thead th{
   background:var(--navy);color:#fff;
-  padding:13px 20px;text-align:right;
+  padding:12px 18px;text-align:right;
   font-size:13px;font-weight:600;white-space:nowrap;
 }
-.iak-table thead th:first-child{width:52px;text-align:center}
+.iak-table thead th:first-child{width:48px;text-align:center}
 .iak-table tbody tr{transition:background var(--trans)}
 .iak-table tbody tr:nth-child(even){background:#FAFBFD}
 .iak-table tbody tr:hover{background:#F0F6FF}
 .iak-table td{
-  padding:14px 20px;font-size:14px;color:var(--text);
+  padding:13px 18px;font-size:14px;color:var(--text);
   border-bottom:1px solid var(--border);
 }
 .iak-table td:first-child{text-align:center;color:var(--muted);font-size:12px}
-.iak-table .td-name{font-weight:600}
-.iak-table .td-cat .cat-tag{
-  display:inline-block;padding:3px 12px;border-radius:100px;
+.td-name{font-weight:600}
+.cat-tag{
+  display:inline-block;padding:3px 11px;border-radius:100px;
   background:#EEF2FF;color:#1A3C6E;font-size:12px;font-weight:500;
 }
-.iak-table .td-price{
-  font-weight:700;color:var(--navy);font-size:15px;
-}
-.iak-table .td-date{font-size:12px;color:var(--muted)}
-.iak-table .td-unit{color:var(--muted);font-size:13px}
-
+.td-price{font-weight:700;color:var(--navy);font-size:15px}
+.td-date{font-size:12px;color:var(--muted)}
+.td-unit{color:var(--muted);font-size:13px}
 .no-results{padding:60px 20px;text-align:center;color:var(--muted);font-size:14px}
 
-/* ── Footer note ───────────────────────────────── */
+/* skeleton */
+@keyframes shimmer{0%{background-position:-800px 0}100%{background-position:800px 0}}
+.skeleton{
+  background:linear-gradient(90deg,#f0f2f5 25%,#e8eaed 50%,#f0f2f5 75%);
+  background-size:800px 100%;animation:shimmer 1.4s infinite;
+  border-radius:4px;height:14px;
+}
+
+/* ── FOOTER ─────────────────────────────────────── */
 .iak-footer{
   text-align:center;margin-top:40px;
   font-size:12px;color:var(--muted);line-height:2;
@@ -170,22 +167,112 @@ html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text)
 .iak-footer a{color:var(--accent2);text-decoration:none;font-weight:600}
 .iak-footer a:hover{text-decoration:underline}
 
-/* ── Responsive ────────────────────────────────── */
-@media(max-width:700px){
-  .iak-table .td-date,.iak-table .td-unit{display:none}
-  .iak-table thead th:nth-child(4),
-  .iak-table thead th:nth-child(6){display:none}
-  .filter-bar{flex-direction:column;align-items:flex-start}
+/* ══════════════════════════════════════════════════
+   RESPONSIVE  —  card layout on mobile
+══════════════════════════════════════════════════ */
+
+/* Tablet: slightly tighten */
+@media(max-width:900px){
+  .iak-body{padding:20px 12px 50px}
+  .filter-bar{padding:14px 16px}
   .search-wrap{width:100%}
-  .header-nav{display:none}
 }
 
-/* skeleton loader */
-@keyframes shimmer{0%{background-position:-800px 0}100%{background-position:800px 0}}
-.skeleton{
-  background:linear-gradient(90deg,#f0f2f5 25%,#e8eaed 50%,#f0f2f5 75%);
-  background-size:800px 100%;animation:shimmer 1.4s infinite;
-  border-radius:4px;height:14px;
+/* Mobile: switch table → cards */
+@media(max-width:640px){
+  .header-inner{padding:18px 16px 0}
+  .hero-strip{padding:0 16px 24px;margin-top:14px}
+  .hero-meta{gap:8px}
+  .meta-chip{font-size:11px;padding:5px 10px}
+  .header-nav a{padding:7px 13px;font-size:12px}
+
+  .filter-bar{padding:14px 14px;gap:8px}
+  .filter-cats{gap:6px}
+  .cat-pill{font-size:12px;padding:5px 12px}
+
+  /* Hide normal thead */
+  .iak-table thead{display:none}
+
+  /* Each row becomes a card */
+  .iak-table,
+  .iak-table tbody,
+  .iak-table tr,
+  .iak-table td{display:block;width:100%}
+
+  .iak-table tbody tr{
+    border:1px solid var(--border);
+    border-radius:10px;
+    margin:0 12px 12px;
+    width:calc(100% - 24px);
+    padding:4px 0;
+    background:#fff;
+    box-shadow:0 1px 4px rgba(0,0,0,.05);
+  }
+  .iak-table tbody tr:nth-child(even){background:#fff}
+  .iak-table tbody tr:hover{background:#F8FAFF}
+
+  /* Hide row-number cell on mobile */
+  .iak-table td:first-child{display:none}
+
+  /* All cells: label on right, value on left */
+  .iak-table td{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:10px 16px;
+    border-bottom:1px solid #F0F2F5;
+    font-size:13px;
+    text-align:right;
+  }
+  .iak-table td:last-child{border-bottom:none}
+
+  /* data-label attribute shown as row header */
+  .iak-table td::before{
+    content:attr(data-label);
+    font-size:11px;font-weight:600;
+    color:var(--muted);
+    text-align:left;
+    flex-shrink:0;
+    margin-left:12px;
+    white-space:nowrap;
+  }
+
+  /* name cell: full-width header style */
+  .iak-table td.td-name{
+    background:linear-gradient(135deg,var(--navy),var(--navy2));
+    color:#fff;font-size:14px;font-weight:700;
+    border-radius:9px 9px 0 0;
+    padding:13px 16px;
+    justify-content:space-between;
+    border-bottom:none;
+  }
+  .iak-table td.td-name::before{
+    color:rgba(255,255,255,.5);font-size:11px;
+  }
+
+  /* price: highlight */
+  .iak-table td.td-price{
+    background:#FFFBF0;
+    font-size:16px;font-weight:800;color:var(--accent2);
+  }
+  .iak-table td.td-price::before{color:var(--muted)}
+
+  .td-unit,.td-date{display:flex}
+
+  /* table-card: remove overflow constraint */
+  .table-card{overflow:visible;background:transparent;border:none;box-shadow:none}
+  .table-card-head{
+    background:#fff;border-radius:var(--radius);border:1px solid var(--border);
+    box-shadow:var(--shadow);margin-bottom:4px;
+  }
+
+  /* overflow wrapper not needed */
+  .table-scroll{overflow:visible!important}
+}
+
+/* Very small phones */
+@media(max-width:360px){
+  .iak-table tbody tr{margin:0 8px 10px;width:calc(100% - 16px)}
 }
 </style>
 </head>
@@ -204,14 +291,13 @@ html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text)
       <a href="<?= esc_url($site_url) ?>">🌐 بازگشت به Kidioki</a>
     </nav>
   </div>
-
   <div class="hero-strip">
-    <h1>لیست قیمت رسمی محصولات</h1>
+    <h1>لیست قیمت رسمی مواد اولیه</h1>
     <p>قیمت‌ها به‌روز و مستقیم از کارخانه اعلام می‌شوند. جهت اطمینان از آخرین قیمت با واحد فروش تماس بگیرید.</p>
     <div class="hero-meta">
       <div class="meta-chip">📅 آخرین به‌روزرسانی: <strong id="last-update">—</strong></div>
       <div class="meta-chip">📦 تعداد محصولات: <strong id="total-count">—</strong></div>
-      <div class="meta-chip">☎️ تماس: <strong dir="ltr"><?= esc_html($phone) ?></strong></div>
+      <div class="meta-chip">☎️ <strong dir="ltr"><?= esc_html($phone) ?></strong></div>
     </div>
   </div>
 </header>
@@ -219,9 +305,8 @@ html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text)
 <!-- ══ BODY ════════════════════════════════════ -->
 <main class="iak-body">
 
-  <!-- Filter bar -->
   <div class="filter-bar">
-    <label>دسته‌بندی:</label>
+    <span class="filter-label">دسته‌بندی:</span>
     <div class="filter-cats" id="filter-cats">
       <button class="cat-pill active" data-cat="all">همه</button>
     </div>
@@ -230,13 +315,12 @@ html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text)
     </div>
   </div>
 
-  <!-- Table card -->
   <div class="table-card">
-    <div class="table-header">
+    <div class="table-card-head">
       <h2>جدول قیمت‌ها</h2>
       <span id="iak-count">در حال بارگذاری...</span>
     </div>
-    <div style="overflow-x:auto">
+    <div class="table-scroll" style="overflow-x:auto">
       <table class="iak-table">
         <thead>
           <tr>
@@ -251,9 +335,9 @@ html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text)
         <tbody id="iak-tbody">
           <tr>
             <td colspan="6">
-              <div style="padding:20px 0;display:grid;gap:10px">
+              <div style="padding:16px 0;display:grid;gap:10px">
                 <?php for($i=0;$i<6;$i++): ?>
-                <div style="display:grid;grid-template-columns:40px 2fr 1fr 1fr 1fr 1fr;gap:16px;padding:8px 20px">
+                <div style="display:grid;grid-template-columns:40px 2fr 1fr 1fr 1fr 1fr;gap:14px;padding:8px 18px">
                   <?php for($j=0;$j<6;$j++): ?><div class="skeleton"></div><?php endfor ?>
                 </div>
                 <?php endfor ?>
@@ -267,7 +351,6 @@ html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text)
 
 </main>
 
-<!-- ══ FOOTER ══════════════════════════════════ -->
 <footer class="iak-footer">
   <p>© <?= date('Y') ?> IAK Plast — تمامی حقوق محفوظ است</p>
   <p><?= esc_html($foot_note) ?> | <a href="<?= esc_url($site_url) ?>">بازگشت به Kidioki</a></p>
@@ -280,76 +363,68 @@ html,body{min-height:100%;font-family:'Ravi',Tahoma,sans-serif;color:var(--text)
 
   function fmt(dt){
     if(!dt) return '—';
-    var d = new Date(dt.replace(' ','T'));
-    return d.toLocaleDateString('fa-IR',{year:'numeric',month:'short',day:'numeric'});
+    try{var d=new Date(dt.replace(' ','T'));return d.toLocaleDateString('fa-IR',{year:'numeric',month:'short',day:'numeric'});}
+    catch(e){return dt;}
   }
   function esc(s){var d=document.createElement('div');d.textContent=s||'';return d.innerHTML;}
 
   function render(){
-    var filtered = allProducts.filter(function(p){
-      var matchCat = currentCat === 'all' || p.category === currentCat;
-      var matchQ   = !searchTerm || p.name.indexOf(searchTerm) > -1 || p.category.indexOf(searchTerm) > -1;
-      return matchCat && matchQ;
+    var filtered=allProducts.filter(function(p){
+      var mc=currentCat==='all'||p.category===currentCat;
+      var mq=!searchTerm||p.name.indexOf(searchTerm)>-1||p.category.indexOf(searchTerm)>-1;
+      return mc&&mq;
     });
-
-    var count = document.getElementById('iak-count');
-    count.innerHTML = 'نمایش <strong>'+ filtered.length +'</strong> محصول';
-
-    var tbody = document.getElementById('iak-tbody');
+    document.getElementById('iak-count').innerHTML='نمایش <strong>'+filtered.length+'</strong> محصول';
+    var tbody=document.getElementById('iak-tbody');
     if(!filtered.length){
-      tbody.innerHTML = '<tr><td colspan="6" class="no-results">محصولی یافت نشد 🔍</td></tr>';
+      tbody.innerHTML='<tr><td colspan="6" class="no-results">محصولی یافت نشد 🔍</td></tr>';
       return;
     }
-    tbody.innerHTML = filtered.map(function(p,i){
+    tbody.innerHTML=filtered.map(function(p,i){
       return '<tr>'
         +'<td>'+(i+1)+'</td>'
-        +'<td class="td-name">'+esc(p.name)+'</td>'
-        +'<td class="td-cat"><span class="cat-tag">'+esc(p.category)+'</span></td>'
-        +'<td class="td-unit">'+esc(p.unit)+'</td>'
-        +'<td class="td-price">'+esc(p.price)+'</td>'
-        +'<td class="td-date">'+fmt(p.updated_at)+'</td>'
+        +'<td class="td-name" data-label="نام محصول">'+esc(p.name)+'</td>'
+        +'<td data-label="دسته‌بندی"><span class="cat-tag">'+esc(p.category)+'</span></td>'
+        +'<td class="td-unit" data-label="واحد">'+esc(p.unit)+'</td>'
+        +'<td class="td-price" data-label="قیمت (ریال)">'+esc(p.price)+'</td>'
+        +'<td class="td-date" data-label="آخرین آپدیت">'+fmt(p.updated_at)+'</td>'
         +'</tr>';
     }).join('');
   }
 
   function buildCats(){
-    var cats = ['all'];
-    allProducts.forEach(function(p){if(p.category && cats.indexOf(p.category)<0) cats.push(p.category);});
-    var wrap = document.getElementById('filter-cats');
-    wrap.innerHTML = cats.map(function(c){
+    var cats=['all'];
+    allProducts.forEach(function(p){if(p.category&&cats.indexOf(p.category)<0)cats.push(p.category);});
+    var wrap=document.getElementById('filter-cats');
+    wrap.innerHTML=cats.map(function(c){
       return '<button class="cat-pill'+(c===currentCat?' active':'')+'" data-cat="'+esc(c)+'">'+(c==='all'?'همه':esc(c))+'</button>';
     }).join('');
     wrap.querySelectorAll('.cat-pill').forEach(function(btn){
       btn.addEventListener('click',function(){
-        currentCat = this.dataset.cat;
+        currentCat=this.dataset.cat;
         wrap.querySelectorAll('.cat-pill').forEach(function(b){b.classList.remove('active');});
-        this.classList.add('active');
-        render();
+        this.classList.add('active');render();
       });
     });
   }
 
   function updateMeta(){
-    document.getElementById('total-count').textContent = allProducts.length;
+    document.getElementById('total-count').textContent=allProducts.length;
     if(allProducts.length){
-      var latest = allProducts.slice().sort(function(a,b){return b.updated_at > a.updated_at ? 1 : -1;})[0];
-      document.getElementById('last-update').textContent = fmt(latest.updated_at);
+      var latest=allProducts.slice().sort(function(a,b){return b.updated_at>a.updated_at?1:-1;})[0];
+      document.getElementById('last-update').textContent=fmt(latest.updated_at);
     }
   }
 
   fetch(ajaxUrl+'?action=iakp_pub_products')
     .then(function(r){return r.json();})
     .then(function(res){
-      if(!res.success) return;
-      allProducts = res.data;
-      buildCats();
-      render();
-      updateMeta();
+      if(!res.success)return;
+      allProducts=res.data;buildCats();render();updateMeta();
     });
 
   document.getElementById('search-input').addEventListener('input',function(){
-    searchTerm = this.value.trim();
-    render();
+    searchTerm=this.value.trim();render();
   });
 })();
 </script>
