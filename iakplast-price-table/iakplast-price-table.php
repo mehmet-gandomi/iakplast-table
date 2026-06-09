@@ -738,11 +738,11 @@ function iakp_render_choice_page() {
     $font_url  = IAKP_PLUGIN_URL . 'assets/RaviVF.ttf';
     ?>
 <!DOCTYPE html>
-<html lang="fa" dir="ltr">
+<html lang="fa" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>IAK Plast – Welcome</title>
+<title>IAK Plast – خوش آمدید</title>
 <style>
 @font-face{
   font-family:'Ravi';
@@ -751,96 +751,152 @@ function iakp_render_choice_page() {
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
-  --navy:#0B1F3A;--accent:#E8A020;--muted:rgba(255,255,255,.5);
+  --navy:#0B1F3A;
+  --blue:#1A3C6E;
+  --accent:#E8A020;
+  --accent2:#C8780A;
+  --text:#1E2D40;
+  --muted:#6B7C93;
+  --border:#E2E8F0;
+  --bg:#F0F4F8;
 }
-html,body{height:100%;font-family:'Ravi',sans-serif;direction:ltr}
+html,body{
+  height:100%;font-family:'Ravi',Tahoma,sans-serif;
+  direction:rtl;color:var(--text);
+}
 body{
   display:flex;align-items:center;justify-content:center;min-height:100vh;
-  background:linear-gradient(135deg,#060f1e 0%,#0b1f3a 50%,#0d2545 100%);
+  background:var(--bg);
   position:relative;overflow:hidden;
 }
-body::before{
-  content:'';position:fixed;inset:0;opacity:.04;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Ccircle cx='40' cy='40' r='1.5' fill='white'/%3E%3C/svg%3E");
+/* subtle light bg shapes */
+.orb{position:fixed;border-radius:50%;pointer-events:none;z-index:0}
+.orb-1{
+  width:600px;height:600px;
+  background:radial-gradient(circle,rgba(26,60,110,.07) 0%,transparent 70%);
+  top:-150px;right:-150px;
 }
-.orb{position:fixed;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
-.orb-1{width:500px;height:500px;background:rgba(26,60,110,.35);top:-100px;right:-100px}
-.orb-2{width:400px;height:400px;background:rgba(232,160,32,.08);bottom:-80px;left:-80px}
+.orb-2{
+  width:500px;height:500px;
+  background:radial-gradient(circle,rgba(232,160,32,.08) 0%,transparent 70%);
+  bottom:-100px;left:-100px;
+}
 
 .card{
   position:relative;z-index:1;
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
+  background:#fff;
+  border:1px solid var(--border);
   border-radius:24px;
-  padding:52px 44px 44px;
-  max-width:460px;width:90%;
-  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-  box-shadow:0 40px 80px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07);
+  padding:48px 40px 40px;
+  max-width:440px;width:90%;
+  box-shadow:0 8px 40px rgba(11,31,58,.08),0 2px 8px rgba(11,31,58,.04);
   text-align:center;
 }
-.logo-name{font-size:32px;font-weight:800;color:#fff;letter-spacing:1px}
-.logo-en{font-size:11px;color:var(--muted);letter-spacing:3px;text-transform:uppercase;margin-top:4px}
 
-.card-title{font-size:17px;font-weight:600;color:rgba(255,255,255,.9);margin:28px 0 6px}
-.card-sub{font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:32px}
+.logo-name{
+  font-size:30px;font-weight:800;
+  color:var(--navy);letter-spacing:.5px;
+}
+.logo-sub{
+  font-size:11px;color:var(--muted);
+  letter-spacing:2px;text-transform:uppercase;margin-top:5px;
+}
+
+.divider-line{
+  width:40px;height:3px;border-radius:2px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  margin:20px auto;
+}
+
+.card-title{
+  font-size:16px;font-weight:700;color:var(--navy);
+  margin-bottom:6px;
+}
+.card-sub{
+  font-size:13px;color:var(--muted);line-height:1.8;
+  margin-bottom:28px;
+}
 
 .choices{display:grid;gap:12px}
+
 .choice-btn{
   display:flex;align-items:center;gap:14px;
-  padding:17px 20px;border-radius:14px;
-  border:1.5px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.04);
-  color:#fff;text-decoration:none;
-  transition:all .22s ease;text-align:left;
+  padding:18px 20px;border-radius:14px;
+  border:1.5px solid var(--border);
+  background:#fff;
+  color:var(--text);text-decoration:none;
+  transition:all .2s ease;text-align:right;
+  box-shadow:0 2px 8px rgba(0,0,0,.04);
 }
 .choice-btn:hover{
-  background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.22);
-  transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,0,0,.3);
+  border-color:#c5d2e0;
+  box-shadow:0 6px 24px rgba(11,31,58,.1);
+  transform:translateY(-2px);
 }
 .choice-btn.cta{
-  background:linear-gradient(135deg,var(--accent),#c8780a);
-  border-color:transparent;box-shadow:0 8px 28px rgba(232,160,32,.4);
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent2) 100%);
+  border-color:transparent;color:#fff;
+  box-shadow:0 6px 24px rgba(232,160,32,.35);
 }
-.choice-btn.cta:hover{box-shadow:0 14px 40px rgba(232,160,32,.55)}
-.btn-icon{
-  width:42px;height:42px;border-radius:10px;
-  background:rgba(255,255,255,.12);
-  display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;
+.choice-btn.cta:hover{
+  box-shadow:0 10px 36px rgba(232,160,32,.5);
+  transform:translateY(-2px);
 }
-.btn-text{flex:1;text-align:left}
-.btn-title{font-size:14px;font-weight:600;display:block}
-.btn-desc{font-size:12px;opacity:.65;margin-top:2px;display:block}
+.choice-btn.cta .btn-desc{color:rgba(255,255,255,.8)}
 
-.sep{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,.2);font-size:12px;margin:4px 0}
-.sep::before,.sep::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+.btn-icon{
+  width:44px;height:44px;border-radius:12px;
+  background:rgba(11,31,58,.06);
+  display:flex;align-items:center;justify-content:center;
+  font-size:21px;flex-shrink:0;
+}
+.choice-btn.cta .btn-icon{background:rgba(255,255,255,.2)}
+
+.btn-text{flex:1;text-align:right}
+.btn-title{font-size:14px;font-weight:700;display:block;color:inherit}
+.btn-desc{font-size:12px;color:var(--muted);margin-top:3px;display:block;line-height:1.5}
+
+.sep{
+  display:flex;align-items:center;gap:10px;
+  color:var(--muted);font-size:12px;margin:2px 0;
+}
+.sep::before,.sep::after{
+  content:'';flex:1;height:1px;background:var(--border);
+}
 </style>
 </head>
 <body>
 <div class="orb orb-1"></div>
 <div class="orb orb-2"></div>
+
 <div class="card">
   <div class="logo-name">IAK Plast</div>
-  <div class="logo-en">Official Price List</div>
+  <div class="logo-sub">لیست قیمت رسمی</div>
+  <div class="divider-line"></div>
 
-  <p class="card-title">Where would you like to go?</p>
-  <p class="card-sub">Please choose one of the options below</p>
+  <p class="card-title">به کدام بخش می‌روید؟</p>
+  <p class="card-sub">یکی از گزینه‌های زیر را انتخاب کنید</p>
 
   <div class="choices">
+
     <a href="<?= esc_url($price_url) ?>" class="choice-btn cta">
       <div class="btn-icon">📋</div>
       <div class="btn-text">
-        <span class="btn-title">Product Price List</span>
-        <span class="btn-desc">View up-to-date prices for all products</span>
+        <span class="btn-title">لیست قیمت مواد اولیه</span>
+        <span class="btn-desc">مشاهده قیمت‌نامه به‌روز مواد اولیه IAK Plast</span>
       </div>
     </a>
-    <div class="sep">or</div>
+
+    <div class="sep">یا</div>
+
     <a href="<?= esc_url($site_url) ?>" class="choice-btn">
-      <div class="btn-icon">🌐</div>
+      <div class="btn-icon">🧸</div>
       <div class="btn-text">
-        <span class="btn-title">Back to Kidioki</span>
-        <span class="btn-desc">Visit the main website</span>
+        <span class="btn-title">Kidioki</span>
+        <span class="btn-desc">فروشگاه اسباب‌بازی کیدیوکی — خرید آنلاین اسباب‌بازی</span>
       </div>
     </a>
+
   </div>
 </div>
 </body>
